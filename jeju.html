@@ -14,89 +14,107 @@
       color: #2b2b2b;
       line-height: 1.7;
     }
-    .page { max-width: 960px; margin: 0 auto; padding: 16px; }
+
+    .page {
+      container-type: inline-size;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px;
+    }
 
     header {
       background: linear-gradient(135deg, #ff9f43, #ff6b35);
-      color: #fff;
-      text-align: center;
-      padding: 36px 16px;
-      border-radius: 12px;
+      color: #fff; text-align: center;
+      padding: 32px 16px; border-radius: 12px;
     }
     header h1 { margin: 0; font-size: 2rem; }
     header p { margin: 6px 0 0; opacity: .95; }
 
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 12px 0;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-      overflow: hidden;
+      display: flex; flex-wrap: wrap; margin: 12px 0;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08); overflow: hidden;
     }
     nav a {
-      flex: 1;
-      min-width: 90px;
-      padding: 14px 8px;
-      text-align: center;
-      text-decoration: none;
-      color: #555;
-      font-weight: bold;
+      flex: 1; min-width: 80px; padding: 14px 6px; text-align: center;
+      text-decoration: none; color: #555; font-weight: bold;
     }
-    nav a:hover { background: #fff1e3; color: #ff6b35; }
+    nav a:hover, nav a.active { background: #fff1e3; color: #ff6b35; }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 12px;
-      align-items: start;
-    }
-    .left { display: flex; flex-direction: column; gap: 12px; }
+    .main-grid { display: grid; grid-template-columns: 1fr 260px; gap: 12px; align-items: start; }
+    .left { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
     section, article, aside {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      background: #fff; border-radius: 12px; padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08); scroll-margin-top: 12px;
     }
-    h2 { margin: 0 0 12px; font-size: 1.3rem; color: #ff6b35; }
-    h3 { margin: 0 0 4px; font-size: 1.05rem; }
+    h2 { margin: 0 0 12px; font-size: 1.25rem; color: #ff6b35; }
+    h3 { margin: 0; font-size: 1.05rem; }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-    .item { background: #fff6ec; border-radius: 10px; padding: 12px; text-align: center; }
+    /* 검색 + 탭 */
+    .search {
+      width: 100%; padding: 10px 14px; font-size: 1rem; font-family: inherit;
+      border: 1px solid #ddd; border-radius: 20px; outline: none; margin-bottom: 10px;
+    }
+    .search:focus { border-color: #ff6b35; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tab, .season-btn {
+      font-family: inherit; font-size: .85rem; padding: 6px 14px;
+      border: 1px solid #ffd2b8; border-radius: 16px; background: #fff; color: #ff6b35; cursor: pointer;
+    }
+    .tab.on { background: #ff6b35; color: #fff; border-color: #ff6b35; }
+    .season-btn.on { background: #2f9e44; border-color: #2f9e44; color: #fff; }
+
+    /* 카드 */
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .item {
+      position: relative; background: #fff6ec; border: 2px solid transparent;
+      border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer;
+      transition: transform .15s, border-color .15s;
+    }
+    .item:hover { transform: translateY(-3px); }
+    .item.selected { border-color: #ff6b35; }
+    .item.in-season::after {
+      content: '제철'; position: absolute; top: 6px; left: 6px;
+      font-size: .65rem; background: #2f9e44; color: #fff; padding: 1px 6px; border-radius: 8px;
+    }
     .item .emoji { font-size: 2.2rem; }
-    .item p { margin: 4px 0 0; font-size: .85rem; color: #555; }
-
-    article ul { padding-left: 1.2rem; margin: 0; }
-    article li { margin-bottom: 6px; }
-
-    aside h2 { font-size: 1.1rem; }
-    aside ul { list-style: none; padding: 0; margin: 0 0 16px; }
-    aside li { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: .9rem; }
-    .count-box { text-align: center; background: #fff6ec; border-radius: 10px; padding: 12px; }
-    .count-box .num { font-size: 2.4rem; font-weight: bold; color: #ff6b35; }
-    .count-box button {
-      font-family: inherit; font-size: 1rem; padding: 6px 16px; cursor: pointer;
-      border: 0; border-radius: 8px; background: #ff6b35; color: #fff;
+    .item p { margin: 2px 0 0; font-size: .8rem; color: #666; }
+    .heart {
+      position: absolute; top: 2px; right: 4px; border: 0; background: none;
+      font-size: 1.1rem; cursor: pointer; padding: 4px;
     }
+    .empty { grid-column: 1 / -1; text-align: center; color: #999; padding: 20px 0; }
+
+    /* 상세 */
+    #detail .big { font-size: 3rem; }
+    #detail dl { margin: 10px 0 0; }
+    #detail dt { font-weight: bold; color: #ff6b35; margin-top: 8px; }
+    #detail dd { margin: 0; }
+
+    aside h2 { font-size: 1.05rem; }
+    aside ul { list-style: none; padding: 0; margin: 0 0 18px; }
+    aside li { padding: 7px 0; border-bottom: 1px dashed #eee; font-size: .9rem; }
+    .month-now { background: #e9f7ec; border-radius: 6px; padding-left: 6px; font-weight: bold; }
+    .fav-count { color: #ff6b35; font-weight: bold; }
+    .fav-list li { display: flex; justify-content: space-between; gap: 6px; }
+    .fav-list button { border: 0; background: none; cursor: pointer; color: #aaa; }
 
     footer {
-      margin-top: 12px;
-      text-align: center;
-      padding: 18px;
-      font-size: .85rem;
-      color: #777;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      margin-top: 12px; text-align: center; padding: 18px; font-size: .85rem; color: #777;
+      background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08);
     }
 
-    @media (max-width: 720px) {
+    /* 화면(또는 모바일 틀) 너비에 반응 */
+    @container (max-width: 720px) {
       .main-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.5rem; }
+      nav a { font-size: .85rem; min-width: 70px; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
+
   <div class="page">
 
     <header id="top">
@@ -104,63 +122,38 @@
       <p>바람과 바다, 화산토가 키운 제주의 맛을 만나 보세요</p>
     </header>
 
-    <nav>
-      <a href="#top">🏠 홈</a>
-      <a href="#fruit">🍊 과일</a>
-      <a href="#sea">🐟 먹거리</a>
-      <a href="#season">🌤️ 제철 달력</a>
-      <a href="#tip">🎁 선물 팁</a>
+    <nav id="nav">
+      <a href="#top" class="active">🏠 홈</a>
+      <a href="#explore">🍊 특산물</a>
+      <a href="#detail">📖 상세</a>
+      <a href="#season">🌤️ 제철</a>
+      <a href="#fav">❤️ 찜</a>
     </nav>
 
     <div class="main-grid">
       <div class="left">
 
-        <section id="fruit">
-          <h2>🍊 제주 대표 과일</h2>
-          <p>따뜻한 기후와 화산토 덕분에 제주의 과일은 향이 진하고 당도가 높습니다.</p>
-          <div class="cards">
-            <div class="item"><div class="emoji">🍊</div><h3>감귤</h3><p>새콤달콤, 겨울 간식의 왕</p></div>
-            <div class="item"><div class="emoji">🍋</div><h3>한라봉</h3><p>볼록한 꼭지, 진한 향</p></div>
-            <div class="item"><div class="emoji">🍊</div><h3>천혜향</h3><p>하늘이 내린 향기</p></div>
-            <div class="item"><div class="emoji">❤️</div><h3>레드향</h3><p>붉은 껍질, 큼직한 알맹이</p></div>
-          </div>
+        <section id="explore">
+          <h2>🍊 특산물 둘러보기</h2>
+          <input id="search" class="search" type="search" placeholder="🔍 이름이나 설명으로 검색 (예: 귤, 구이)">
+          <div class="tabs" id="tabs"></div>
+          <div class="cards" id="cards"></div>
         </section>
 
-        <article id="sea">
-          <h2>🐟 맛있는 제주 먹거리</h2>
-          <ul>
-            <li>🐖 <b>흑돼지</b> — 두툼한 근고기를 숯불에 구워 멜젓에 콕</li>
-            <li>🐟 <b>갈치</b> — 은빛 갈치로 끓인 조림과 구이</li>
-            <li>🐠 <b>옥돔</b> — 담백하고 고소한 제주의 생선</li>
-            <li>🐚 <b>전복 · 소라</b> — 해녀가 건져 올린 바다의 보물</li>
-            <li>🍜 <b>고기국수</b> — 진한 돼지 육수에 말아낸 한 그릇</li>
-            <li>🍵 <b>녹차</b> — 한라산 자락 차밭에서 자란 청정 찻잎</li>
-          </ul>
+        <article id="detail">
+          <h2>📖 상세 보기</h2>
+          <div id="detailBody"></div>
         </article>
 
       </div>
 
       <aside>
         <h2 id="season">🌤️ 제철 달력</h2>
-        <ul>
-          <li>🌸 봄 — 감자, 녹차</li>
-          <li>☀️ 여름 — 하귤, 한치</li>
-          <li>🍂 가을 — 극조생 감귤</li>
-          <li>❄️ 겨울 — 감귤, 한라봉, 천혜향</li>
-        </ul>
+        <button class="season-btn" id="seasonBtn">🌿 이번 달 제철만 보기</button>
+        <ul id="monthList" style="margin-top:10px"></ul>
 
-        <h2 id="tip">🎁 선물 팁</h2>
-        <ul>
-          <li>🍊 귤은 단단하고 꼭지가 작은 것으로</li>
-          <li>📦 택배는 제철에 바로 수확한 것이 신선해요</li>
-          <li>🍫 감귤 초콜릿은 가벼운 기념품으로 좋아요</li>
-        </ul>
-
-        <div class="count-box">
-          <div>🍊 내가 담은 귤</div>
-          <div class="num" id="count">0</div>
-          <button id="btn">+2 담기</button>
-        </div>
+        <h2 id="fav">❤️ 내가 찜한 특산물 <span class="fav-count" id="favCount">0</span></h2>
+        <ul class="fav-list" id="favList"></ul>
       </aside>
     </div>
 
@@ -171,12 +164,145 @@
   </div>
 
   <script>
-    let count = 0;
-    const countEl = document.getElementById('count');
-    document.getElementById('btn').addEventListener('click', () => {
-      count += 2;
-      countEl.textContent = count;
+    // months: 대략적인 제철 달(0 이면 연중). 정확한 시기는 해마다 달라질 수 있어요.
+    const ITEMS = [
+      { id: 'gyul',  emoji: '🍊', name: '감귤',   cat: '과일',   months: [10,11,12,1,2], desc: '새콤달콤, 겨울 간식의 왕', tip: '껍질이 얇고 꼭지가 작은 것이 달아요.' },
+      { id: 'halla', emoji: '🍋', name: '한라봉', cat: '과일',   months: [12,1,2,3,4],   desc: '볼록한 꼭지, 진한 향',     tip: '선물용으로 인기가 많아요.' },
+      { id: 'cheon', emoji: '🍊', name: '천혜향', cat: '과일',   months: [1,2,3],        desc: '하늘이 내린 향기',         tip: '향이 진하고 과즙이 풍부해요.' },
+      { id: 'red',   emoji: '❤️', name: '레드향', cat: '과일',   months: [12,1,2],       desc: '붉은 껍질, 큼직한 알맹이', tip: '알맹이가 커서 먹기 편해요.' },
+      { id: 'ha',    emoji: '🍈', name: '하귤',   cat: '과일',   months: [4,5,6,7],      desc: '여름에 먹는 큰 귤',        tip: '시원하게 해서 먹으면 상큼해요.' },
+      { id: 'dang',  emoji: '🥕', name: '구좌 당근', cat: '채소', months: [11,12,1,2,3], desc: '화산토가 키운 달콤한 당근', tip: '주스나 샐러드로 좋아요.' },
+      { id: 'gam',   emoji: '🥔', name: '감자',   cat: '채소',   months: [5,6],          desc: '봄에 수확하는 포슬포슬 감자', tip: '쪄서 먹으면 고소해요.' },
+      { id: 'pig',   emoji: '🐖', name: '흑돼지', cat: '고기',   months: [0],            desc: '두툼한 근고기를 숯불 구이로', tip: '멜젓에 찍어 먹는 게 제주 스타일!' },
+      { id: 'noodle',emoji: '🍜', name: '고기국수', cat: '고기', months: [0],            desc: '진한 돼지 육수에 말아낸 한 그릇', tip: '든든한 한 끼로 좋아요.' },
+      { id: 'gal',   emoji: '🐟', name: '갈치',   cat: '해산물', months: [7,8,9,10,11],  desc: '은빛 갈치 조림과 구이',     tip: '조림과 구이 모두 인기예요.' },
+      { id: 'ok',    emoji: '🐠', name: '옥돔',   cat: '해산물', months: [0],            desc: '담백하고 고소한 제주의 생선', tip: '구이와 지리로 즐겨요.' },
+      { id: 'jeon',  emoji: '🐚', name: '전복 · 소라', cat: '해산물', months: [6,7,8,9], desc: '해녀가 건져 올린 바다의 보물', tip: '전복죽은 속 편한 한 끼예요.' },
+      { id: 'tea',   emoji: '🍵', name: '녹차',   cat: '차 · 간식', months: [4,5,6],     desc: '한라산 자락 차밭의 청정 찻잎', tip: '녹차 아이스크림도 인기예요.' },
+      { id: 'omegi', emoji: '🥮', name: '오메기떡', cat: '차 · 간식', months: [0],        desc: '쫀득한 제주 전통 떡',       tip: '기념품으로 가볍게 좋아요.' }
+    ];
+    const CATS = ['전체', '과일', '채소', '고기', '해산물', '차 · 간식'];
+    const THIS_MONTH = new Date().getMonth() + 1;
+    const inSeason = it => it.months.includes(0) || it.months.includes(THIS_MONTH);
+
+    const $ = id => document.getElementById(id);
+    let cat = '전체', keyword = '', onlySeason = false, selectedId = ITEMS[0].id;
+    let favs = [];
+    try { favs = JSON.parse(localStorage.getItem('jejuFavs') || '[]'); } catch (e) {}
+    const saveFavs = () => { try { localStorage.setItem('jejuFavs', JSON.stringify(favs)); } catch (e) {} };
+
+    function renderTabs() {
+      $('tabs').replaceChildren(...CATS.map(c => {
+        const b = document.createElement('button');
+        b.className = 'tab' + (c === cat ? ' on' : '');
+        b.textContent = c;
+        b.onclick = () => { cat = c; renderTabs(); renderCards(); };
+        return b;
+      }));
+    }
+
+    function renderCards() {
+      const list = ITEMS.filter(it =>
+        (cat === '전체' || it.cat === cat) &&
+        (!onlySeason || inSeason(it)) &&
+        (it.name + it.desc).includes(keyword));
+      if (!list.length) {
+        const p = document.createElement('p');
+        p.className = 'empty';
+        p.textContent = '조건에 맞는 특산물이 없어요 😢';
+        $('cards').replaceChildren(p);
+        return;
+      }
+      $('cards').replaceChildren(...list.map(it => {
+        const d = document.createElement('div');
+        d.className = 'item' + (it.id === selectedId ? ' selected' : '') + (inSeason(it) ? ' in-season' : '');
+        const heart = document.createElement('button');
+        heart.className = 'heart';
+        heart.textContent = favs.includes(it.id) ? '❤️' : '🤍';
+        heart.setAttribute('aria-label', it.name + ' 찜하기');
+        heart.onclick = e => { e.stopPropagation(); toggleFav(it.id); };
+        d.innerHTML = `<div class="emoji">${it.emoji}</div><h3>${it.name}</h3><p>${it.desc}</p>`;
+        d.prepend(heart);
+        d.onclick = () => { selectedId = it.id; renderCards(); renderDetail(); };
+        return d;
+      }));
+    }
+
+    function renderDetail() {
+      const it = ITEMS.find(x => x.id === selectedId);
+      const months = it.months.includes(0) ? '연중' : it.months.map(m => m + '월').join(' · ');
+      $('detailBody').innerHTML = `
+        <div class="big">${it.emoji}</div>
+        <h3>${it.name}</h3>
+        <dl>
+          <dt>한 줄 소개</dt><dd>${it.desc}</dd>
+          <dt>분류</dt><dd>${it.cat}</dd>
+          <dt>대략적인 제철</dt><dd>${months}${inSeason(it) ? ' — 🌿 지금이 제철!' : ''}</dd>
+          <dt>맛있게 즐기는 팁</dt><dd>${it.tip}</dd>
+        </dl>`;
+    }
+
+    function renderMonths() {
+      $('monthList').replaceChildren(...Array.from({ length: 12 }, (_, i) => {
+        const m = i + 1;
+        const names = ITEMS.filter(it => it.months.includes(m)).map(it => it.name).join(', ') || '—';
+        const li = document.createElement('li');
+        if (m === THIS_MONTH) li.className = 'month-now';
+        li.textContent = `${m}월${m === THIS_MONTH ? ' (이번 달)' : ''} · ${names}`;
+        return li;
+      }));
+    }
+
+    function toggleFav(id) {
+      favs = favs.includes(id) ? favs.filter(f => f !== id) : [...favs, id];
+      saveFavs();
+      renderCards();
+      renderFavs();
+    }
+
+    function renderFavs() {
+      $('favCount').textContent = favs.length;
+      if (!favs.length) {
+        const li = document.createElement('li');
+        li.textContent = '하트(🤍)를 눌러 찜해 보세요';
+        li.style.color = '#999';
+        $('favList').replaceChildren(li);
+        return;
+      }
+      $('favList').replaceChildren(...favs.map(id => {
+        const it = ITEMS.find(x => x.id === id);
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        span.textContent = it.emoji + ' ' + it.name;
+        const x = document.createElement('button');
+        x.textContent = '✕';
+        x.setAttribute('aria-label', it.name + ' 찜 해제');
+        x.onclick = () => toggleFav(id);
+        li.append(span, x);
+        return li;
+      }));
+    }
+
+    $('search').addEventListener('input', e => { keyword = e.target.value.trim(); renderCards(); });
+    $('seasonBtn').addEventListener('click', e => {
+      onlySeason = !onlySeason;
+      e.target.classList.toggle('on', onlySeason);
+      e.target.textContent = onlySeason ? '🌿 이번 달 제철만 보는 중 (끄기)' : '🌿 이번 달 제철만 보기';
+      renderCards();
     });
+
+    // 메뉴: 지금 보고 있는 구역을 강조
+    const links = [...document.querySelectorAll('#nav a')];
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['top', 'explore', 'detail', 'season', 'fav'].forEach(id => io.observe($(id)));
+
+    renderTabs(); renderCards(); renderDetail(); renderMonths(); renderFavs();
   </script>
 </body>
 </html>

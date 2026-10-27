@@ -123,6 +123,9 @@
       messages.scrollTop = messages.scrollHeight;
     }
 
+    // 처음 열었을 때 화면이 비어 보이지 않도록 안내 말풍선을 하나 보여 준다 (답변 순서에는 포함되지 않음)
+    addBubble('안녕하세요! 아래 입력창에 메시지를 써서 보내 보세요 👇', 'agent');
+
     document.getElementById('form').addEventListener('submit', e => {
       e.preventDefault();
       const text = input.value.trim();

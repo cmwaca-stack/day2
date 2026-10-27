@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반응형 메뉴 페이지</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Malgun Gothic', sans-serif;
+      background: #f2f4f7;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* 상단 바: 로고 + 메뉴 + 햄버거 */
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: #1f3a5f; color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
+    }
+    .topbar-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      min-height: 56px;
+    }
+    .logo { font-size: 1.2rem; font-weight: bold; text-decoration: none; color: #fff; }
+
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+    nav a {
+      display: block; padding: 8px 16px; border-radius: 8px;
+      text-decoration: none; color: #dbe6f5; font-weight: bold;
+    }
+    nav a:hover { background: rgba(255, 255, 255, .12); }
+    nav a.active { background: #ff8a3d; color: #fff; }
+
+    .hamburger {
+      display: none;
+      width: 44px; height: 44px; padding: 0;
+      border: 0; border-radius: 8px; background: transparent; cursor: pointer;
+      flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 3px; background: #fff; border-radius: 2px;
+      transition: transform .25s, opacity .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    main { max-width: 960px; margin: 0 auto; padding: 20px 16px 40px; }
+    .panel { display: none; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0, 0, 0, .08); }
+    .panel.show { display: block; }
+    h1 { margin: 0 0 6px; font-size: 1.5rem; }
+    .lead { margin: 0 0 16px; color: #666; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .card { background: #f7f9fc; border-radius: 10px; padding: 14px; }
+    .card .emoji { font-size: 2rem; }
+    .card h3 { margin: 4px 0; font-size: 1rem; }
+    .card p { margin: 0; font-size: .9rem; color: #555; }
+
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+    .up { color: #d33; } .down { color: #1a5fd0; }
+    .note { margin-top: 12px; font-size: .8rem; color: #999; }
+
+    iframe { width: 100%; height: 360px; border: 0; border-radius: 10px; }
+
+    /* 모바일: 메뉴를 햄버거 버튼으로 접기 */
+    @media (max-width: 720px) {
+      .hamburger { display: flex; }
+      nav {
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: #1f3a5f; display: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, .25);
+      }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; padding: 8px 16px 16px; }
+      nav a { padding: 12px 14px; }
+      .panel { padding: 16px; }
+      iframe { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="logo" href="#" id="logo">📌 My Page</a>
+
+      <button class="hamburger" id="hamburger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="menu" aria-label="주 메뉴">
+        <ul>
+          <li><a href="#food" data-tab="food" class="active">🍜 음식</a></li>
+          <li><a href="#furniture" data-tab="furniture">🛋️ 가구</a></li>
+          <li><a href="#realestate" data-tab="realestate">🏠 부동산</a></li>
+          <li><a href="#stock" data-tab="stock">📈 주식</a></li>
+          <li><a href="#map" data-tab="map">🗺️ 지도</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel show" id="food">
+      <h1>🍜 음식</h1>
+      <p class="lead">오늘 뭐 먹지? 인기 메뉴를 둘러보세요.</p>
+      <div class="grid">
+        <div class="card"><div class="emoji">🍲</div><h3>김치찌개</h3><p>얼큰하고 든든한 한국인의 소울푸드</p></div>
+        <div class="card"><div class="emoji">🍣</div><h3>초밥</h3><p>신선한 재료로 깔끔하게</p></div>
+        <div class="card"><div class="emoji">🍕</div><h3>피자</h3><p>친구들과 나눠 먹기 좋아요</p></div>
+        <div class="card"><div class="emoji">🍰</div><h3>디저트</h3><p>달콤한 마무리</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="furniture">
+      <h1>🛋️ 가구</h1>
+      <p class="lead">공간에 어울리는 가구를 골라 보세요.</p>
+      <div class="grid">
+        <div class="card"><div class="emoji">🛏️</div><h3>침대</h3><p>숙면을 위한 선택</p></div>
+        <div class="card"><div class="emoji">🪑</div><h3>의자</h3><p>오래 앉아도 편안하게</p></div>
+        <div class="card"><div class="emoji">🗄️</div><h3>수납장</h3><p>깔끔한 정리의 시작</p></div>
+        <div class="card"><div class="emoji">💡</div><h3>조명</h3><p>분위기를 바꾸는 포인트</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="realestate">
+      <h1>🏠 부동산</h1>
+      <p class="lead">매물 유형별로 살펴보세요. (예시 화면)</p>
+      <div class="grid">
+        <div class="card"><div class="emoji">🏢</div><h3>아파트</h3><p>단지형 주거 공간</p></div>
+        <div class="card"><div class="emoji">🏘️</div><h3>빌라 · 주택</h3><p>조용한 주거 환경</p></div>
+        <div class="card"><div class="emoji">🏬</div><h3>상가</h3><p>창업을 위한 공간</p></div>
+        <div class="card"><div class="emoji">🌳</div><h3>토지</h3><p>미래를 위한 땅</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="stock">
+      <h1>📈 주식</h1>
+      <p class="lead">관심 종목 현황 (화면 구성을 위한 예시 데이터예요).</p>
+      <table>
+        <thead><tr><th>종목</th><th>현재가</th><th>등락</th></tr></thead>
+        <tbody>
+          <tr><td>종목 A</td><td>10,000원</td><td class="up">▲ 1.2%</td></tr>
+          <tr><td>종목 B</td><td>25,500원</td><td class="down">▼ 0.8%</td></tr>
+          <tr><td>종목 C</td><td>3,200원</td><td class="up">▲ 3.4%</td></tr>
+          <tr><td>종목 D</td><td>78,000원</td><td class="down">▼ 0.3%</td></tr>
+        </tbody>
+      </table>
+      <p class="note">※ 실제 시세가 아닌 가짜 예시 데이터이며, 투자 권유가 아닙니다.</p>
+    </section>
+
+    <section class="panel" id="map">
+      <h1>🗺️ 지도</h1>
+      <p class="lead">제주도 지도를 보여 드려요.</p>
+      <iframe
+        title="제주도 지도"
+        loading="lazy"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=126.1%2C33.1%2C126.98%2C33.6&layer=mapnik"></iframe>
+      <p class="note">지도 © OpenStreetMap contributors</p>
+    </section>
+  </main>
+
+  <script>
+    const tabs = [...document.querySelectorAll('nav a')];
+    const panels = [...document.querySelectorAll('.panel')];
+    const menu = document.getElementById('menu');
+    const burger = document.getElementById('hamburger');
+
+    function setMenu(open) {
+      menu.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    }
+
+    function showTab(id) {
+      tabs.forEach(a => a.classList.toggle('active', a.dataset.tab === id));
+      panels.forEach(p => p.classList.toggle('show', p.id === id));
+    }
+
+    burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+
+    tabs.forEach(a => a.addEventListener('click', e => {
+      e.preventDefault();
+      showTab(a.dataset.tab);
+      setMenu(false);               // 모바일에서는 메뉴를 고르면 접힘
+    }));
+
+    document.getElementById('logo').addEventListener('click', e => {
+      e.preventDefault();
+      showTab('food');
+      setMenu(false);
+    });
+
+    // 화면이 넓어지면(PC) 열려 있던 햄버거 메뉴 상태를 초기화
+    matchMedia('(min-width: 721px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+  </script>
+</body>
+</html>
