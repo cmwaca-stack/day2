@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
     return res.status(200).json({
       totalHits: data.totalHits,
-      hits: data.hits.map(h => ({ webformatURL: h.webformatURL, tags: h.tags })),
+      hits: data.hits.map(h => ({ webformatURL: h.webformatURL, pageURL: h.pageURL, tags: h.tags })),
     });
   } catch (e) {
     return res.status(502).json({ error: 'Pixabay 에 연결하지 못했어요.' });
