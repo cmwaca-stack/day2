@@ -65,6 +65,20 @@
       .grid { grid-template-columns: 1fr; }
       .viewer img { height: 240px; }
     }
+    /* 채팅 열기 버튼 + agent.html 을 보여 주는 채팅창 */
+    #chatToggle {
+      position: fixed; right: 20px; bottom: 20px; z-index: 10;
+      width: 60px; height: 60px; padding: 0; border-radius: 50%;
+      font-size: 1.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    #chatPanel {
+      position: fixed; right: 20px; bottom: 92px; z-index: 10;
+      width: 360px; height: 520px; max-width: calc(100vw - 40px); max-height: calc(100vh - 110px);
+      border-radius: 14px; overflow: hidden; background: #fff;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+    }
+    #chatPanel[hidden] { display: none; }
+    #chatPanel iframe { display: block; width: 100%; height: 100%; border: 0; }
   </style>
 </head>
 <body>
@@ -219,6 +233,26 @@
       © 2026 내 취향 카드
     </footer>
   </div>
+
+  <button id="chatToggle" aria-label="채팅 열기" aria-expanded="false">💬</button>
+  <div id="chatPanel" hidden>
+    <iframe id="chatFrame" title="제주 특산물 에이전트 채팅"></iframe>
+  </div>
+
+  <script>
+    // 💬 버튼을 누르면 agent.html 채팅 화면이 열리고, 다시 누르면 닫힌다.
+    const chatToggle = document.getElementById('chatToggle');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatFrame = document.getElementById('chatFrame');
+    chatToggle.addEventListener('click', () => {
+      const opening = chatPanel.hidden;
+      if (opening && !chatFrame.src) chatFrame.src = 'agent.html';   // 처음 열 때만 불러옴
+      chatPanel.hidden = !opening;
+      chatToggle.textContent = opening ? '✕' : '💬';
+      chatToggle.setAttribute('aria-expanded', opening);
+      chatToggle.setAttribute('aria-label', opening ? '채팅 닫기' : '채팅 열기');
+    });
+  </script>
 
   <script>
     const COUNT = 20;          // 한 번에 가져올 이미지 수
