@@ -3,38 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>카운터</title>
+  <title>화면 부품 지도</title>
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      font-family: sans-serif;
-    }
-    #count {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-    }
-    button {
-      font-size: 1.25rem;
-      padding: 0.5rem 1.5rem;
-      cursor: pointer;
+    * { box-sizing: border-box; }
+    body { font-family: sans-serif; margin: 0; padding: 24px 16px; background: #f2f4f7; color: #222; }
+    h1 { font-size: 1.25rem; margin: 0 0 4px; text-align: center; }
+    p.sub { margin: 0 0 20px; color: #666; font-size: 0.9rem; text-align: center; }
+
+    /* 이름표 + 카드가 가로로 나란히 */
+    .map { display: grid; grid-template-columns: 1fr 340px 1fr; gap: 0 12px; max-width: 760px; margin: 0 auto; align-items: stretch; }
+    .labels { display: flex; flex-direction: column; }
+    .labels.left { align-items: flex-end; }
+    .tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: bold; color: #fff; white-space: nowrap; }
+    .tag.card-t   { background: #6c5ce7; }
+    .tag.header-t { background: #e5484d; }
+    .tag.tab-t    { background: #0a8f5a; }
+    .tag.btn-t    { background: #d97706; }
+    .tag.list-t   { background: #0d7fb8; }
+    .tag.etc-t    { background: #8b8b8b; }
+    .row { display: flex; align-items: center; }
+    .left .row { justify-content: flex-end; }
+    .row .line { flex: 0 0 16px; height: 2px; background: currentColor; }
+
+    /* 카드 모형 (index.html 을 옮겨 그림) */
+    .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.12); overflow: hidden; outline: 3px dashed #6c5ce7; outline-offset: 4px; }
+    .card-header { padding: 18px; background: #ff8a3d; color: #fff; text-align: center; outline: 3px solid #e5484d; outline-offset: -3px; }
+    .card-header h2 { margin: 0; font-size: 1.3rem; }
+    .card-header p { margin: 4px 0 0; font-size: .8rem; opacity: .9; }
+    .card-nav { display: flex; border-bottom: 1px solid #eee; outline: 3px solid #0a8f5a; outline-offset: -3px; }
+    .card-nav span { flex: 1; padding: 11px 0; text-align: center; color: #555; font-size: .9rem; }
+    .card-nav span.active { color: #ff8a3d; font-weight: bold; background: #fff6ef; }
+    .card-body { padding: 20px; text-align: center; }
+    .num { font-size: 3rem; margin-bottom: 8px; }
+    .btn { display: inline-block; font-size: 1.1rem; padding: .4rem 1.4rem; border: 1px solid #767676; border-radius: 4px; background: #efefef; outline: 3px solid #d97706; outline-offset: 3px; }
+    .list { margin: 18px 0 0; padding: 8px 8px 8px 1.8rem; text-align: left; font-size: .85rem; line-height: 1.7; outline: 3px solid #0d7fb8; border-radius: 4px; }
+    .list li::marker { color: #ff8a3d; font-weight: bold; }
+    .card-footer { padding: 10px; text-align: center; font-size: .78rem; color: #888; background: #fafafa; border-top: 1px solid #eee; }
+
+    h3 { max-width: 760px; margin: 28px auto 8px; font-size: 1rem; }
+    table { max-width: 760px; margin: 0 auto; width: 100%; border-collapse: collapse; background: #fff; }
+    td, th { padding: 8px 10px; border-bottom: 1px solid #eee; text-align: left; font-size: .9rem; }
+    .ok { color: #1a7f37; font-weight: bold; }
+    .no { color: #999; }
+
+    @media (max-width: 720px) {
+      .map { grid-template-columns: 1fr; }
+      .labels { flex-direction: row; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 8px; }
+      .row .line { display: none; }
     }
   </style>
 </head>
 <body>
-  <div id="count">0</div>
-  <button id="btn">+2</button>
-  <script>
-    let count = 0;
-    const countEl = document.getElementById('count');
-    document.getElementById('btn').addEventListener('click', () => {
-      count += 2;
-      countEl.textContent = ++count;
-    });
-  </script>
+  <h1>🧩 화면 부품 지도</h1>
+  <p class="sub">index.html(내 취향 카드)의 부품마다 이름표를 붙였어요. index.html 은 수정하지 않았어요.</p>
+
+  <div class="map">
+    <!-- 왼쪽 이름표: 각 부품 높이에 대략 맞춤 -->
+    <div class="labels left">
+      <div class="row" style="color:#6c5ce7; margin-top:-4px"><span class="tag card-t">카드 (전체 틀)</span><span class="line"></span></div>
+      <div class="row" style="color:#e5484d; margin-top:14px"><span class="tag header-t">헤더</span><span class="line"></span></div>
+      <div class="row" style="color:#0a8f5a; margin-top:26px"><span class="tag tab-t">탭 (메뉴)</span><span class="line"></span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>내 취향 카드</h2><p>나의 취향을 하나씩 모아 보세요</p></div>
+      <div class="card-nav"><span class="active">홈</span><span>취향</span><span>기록</span><span>설정</span></div>
+      <div class="card-body">
+        <div class="num">0</div>
+        <span class="btn">+2</span>
+        <ol class="list">
+          <li>바다와 한라산 사이, 꿈이 자라는 곳 제주대학교</li>
+          <li>제주의 자연 속에서 미래를 설계하세요</li>
+          <li>지역과 세계를 잇는 국립대학, 제주대학교</li>
+          <li>… (총 100줄)</li>
+        </ol>
+      </div>
+      <div class="card-footer">© 2026 내 취향 카드</div>
+    </div>
+
+    <!-- 오른쪽 이름표 -->
+    <div class="labels">
+      <div class="row" style="color:#d97706; margin-top:210px"><span class="line"></span><span class="tag btn-t">버튼</span></div>
+      <div class="row" style="color:#0d7fb8; margin-top:60px"><span class="line"></span><span class="tag list-t">목록</span></div>
+      <div class="row" style="color:#8b8b8b; margin-top:50px"><span class="line"></span><span class="tag etc-t">푸터 (기타)</span></div>
+    </div>
+  </div>
+
+  <h3>📋 이름표 체크</h3>
+  <table>
+    <tr><td><span class="ok">✓</span> 헤더</td><td><code>&lt;header class="card-header"&gt;</code></td></tr>
+    <tr><td><span class="ok">✓</span> 카드</td><td><code>&lt;div class="card"&gt;</code> 전체 틀</td></tr>
+    <tr><td><span class="ok">✓</span> 버튼</td><td><code>&lt;button id="btn"&gt;</code> +2 버튼 1개</td></tr>
+    <tr><td><span class="no">✗</span> 입력창</td><td>없음 (<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code> 없음)</td></tr>
+    <tr><td><span class="ok">✓</span> 탭</td><td><code>&lt;nav class="card-nav"&gt;</code> 홈·취향·기록·설정 4개</td></tr>
+    <tr><td><span class="ok">✓</span> 목록</td><td><code>&lt;ol class="promo"&gt;</code> 100줄</td></tr>
+  </table>
 </body>
 </html>

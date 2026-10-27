@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 취향 카드</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: sans-serif;
+      background: #f2f4f7;
+      color: #222;
+    }
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 20px;
+      background: #ff8a3d;
+      color: #fff;
+      text-align: center;
+    }
+    .card-header h1 { margin: 0; font-size: 1.4rem; }
+    .card-header p { margin: 4px 0 0; font-size: 0.85rem; opacity: 0.9; }
+    .card-nav {
+      display: flex;
+      border-bottom: 1px solid #eee;
+    }
+    .card-nav a {
+      flex: 1;
+      padding: 12px 0;
+      text-align: center;
+      text-decoration: none;
+      color: #555;
+      font-size: 0.95rem;
+    }
+    .card-nav a:hover, .card-nav a.active {
+      color: #ff8a3d;
+      font-weight: bold;
+      background: #fff6ef;
+    }
+    .card-body {
+      padding: 32px 20px;
+      text-align: center;
+    }
+    .card-body { max-height: 60vh; overflow-y: auto; }
+    #count { font-size: 4rem; margin-bottom: 1rem; }
+    .promo-title { margin: 28px 0 12px; font-size: 1.05rem; color: #ff8a3d; }
+    .promo { margin: 0; padding-left: 1.6rem; text-align: left; font-size: 0.9rem; line-height: 1.7; }
+    .promo li::marker { color: #ff8a3d; font-weight: bold; }
+    button {
+      font-size: 1.25rem;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+    }
+    .card-footer {
+      padding: 12px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #888;
+      background: #fafafa;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header class="card-header">
+      <h1>내 취향 카드</h1>
+      <p>나의 취향을 하나씩 모아 보세요</p>
+    </header>
+
+    <nav class="card-nav">
+      <a href="#" class="active">홈</a>
+      <a href="#">취향</a>
+      <a href="#">기록</a>
+      <a href="#">설정</a>
+    </nav>
+
+    <main class="card-body">
+      <div id="count">0</div>
+      <button id="btn">+2</button>
+
+      <h2 class="promo-title">🌊 제주대학교 홍보 문구 100선 🍊</h2>
+      <ol class="promo">
+        <li>바다와 한라산 사이, 꿈이 자라는 곳 제주대학교</li>
+        <li>제주의 자연 속에서 미래를 설계하세요</li>
+        <li>지역과 세계를 잇는 국립대학, 제주대학교</li>
+        <li>당신의 첫걸음을 제주대학교가 응원합니다</li>
+        <li>배움이 있는 곳에 제주대학교가 있습니다</li>
+        <li>푸른 제주, 푸른 꿈, 제주대학교</li>
+        <li>제주의 인재가 대한민국의 인재가 됩니다</li>
+        <li>자연과 사람이 함께 성장하는 캠퍼스</li>
+        <li>제주의 바람처럼 자유롭게 생각하세요</li>
+        <li>한라산의 기상으로 세계를 향해 나아갑니다</li>
+        <li>열정이 모이면 제주대학교가 됩니다</li>
+        <li>청춘의 한 페이지를 제주에서 쓰세요</li>
+        <li>사계절이 아름다운 캠퍼스에서 만나요</li>
+        <li>봄에는 벚꽃, 여름에는 푸른 숲이 반겨 줍니다</li>
+        <li>가을 단풍길을 걸으며 꿈을 키웁니다</li>
+        <li>겨울 한라산을 바라보며 내일을 준비합니다</li>
+        <li>제주대학교, 도전하는 사람의 출발점</li>
+        <li>호기심이 연구가 되고 연구가 미래가 됩니다</li>
+        <li>실력과 인성을 함께 키우는 대학</li>
+        <li>제주에서 시작해 세계로 뻗어 나갑니다</li>
+        <li>지역 사회와 함께 호흡하는 대학입니다</li>
+        <li>제주의 문화와 역사를 배우고 이어 갑니다</li>
+        <li>배움의 즐거움이 가득한 제주대학교</li>
+        <li>친구와 선배가 있는 따뜻한 캠퍼스</li>
+        <li>함께 공부하고 함께 성장합니다</li>
+        <li>어제보다 한 뼘 더 자라는 우리</li>
+        <li>제주대학교에서 나만의 길을 찾으세요</li>
+        <li>다양한 전공, 무한한 가능성</li>
+        <li>인문의 깊이와 과학의 넓이를 함께 만납니다</li>
+        <li>감귤 한 알처럼 상큼한 시작을 응원합니다</li>
+        <li>제주의 청정 자연이 연구실이 됩니다</li>
+        <li>바다를 연구하고 섬의 미래를 그립니다</li>
+        <li>지속 가능한 제주를 함께 고민합니다</li>
+        <li>환경과 생명을 소중히 여기는 대학</li>
+        <li>농업과 해양의 가치를 새롭게 만듭니다</li>
+        <li>관광과 문화의 내일을 연구합니다</li>
+        <li>사람을 살리는 의학과 간호를 배웁니다</li>
+        <li>교육으로 세상을 밝히는 교사를 키웁니다</li>
+        <li>기술로 세상을 바꾸는 공학도의 요람</li>
+        <li>창의적인 아이디어가 꽃피는 곳</li>
+        <li>실패해도 괜찮아요, 다시 도전하면 됩니다</li>
+        <li>꿈을 응원하는 교수님이 곁에 있습니다</li>
+        <li>토론과 협력으로 더 큰 답을 찾습니다</li>
+        <li>제주대학교는 언제나 열려 있습니다</li>
+        <li>누구에게나 공평한 배움의 기회를 드립니다</li>
+        <li>글로벌 감각을 키우는 국제 교류의 장</li>
+        <li>세계의 친구들과 함께 배웁니다</li>
+        <li>언어의 벽을 넘어 마음을 잇습니다</li>
+        <li>제주에서 세계로, 세계에서 제주로</li>
+        <li>동아리 활동으로 대학 생활을 채우세요</li>
+        <li>축제의 열기가 캠퍼스를 물들입니다</li>
+        <li>청춘의 웃음소리가 가득한 잔디밭</li>
+        <li>도서관의 불빛이 꿈을 밝혀 줍니다</li>
+        <li>밤늦도록 빛나는 열정의 캠퍼스</li>
+        <li>시험 기간에도 서로 힘이 되어 줍니다</li>
+        <li>작은 노력이 모여 큰 결실을 맺습니다</li>
+        <li>성실함이 가장 큰 재능입니다</li>
+        <li>오늘의 땀방울이 내일의 자랑이 됩니다</li>
+        <li>졸업 후에도 든든한 동문이 함께합니다</li>
+        <li>선배의 경험이 후배의 길잡이가 됩니다</li>
+        <li>진로와 취업을 함께 고민해 드립니다</li>
+        <li>실무 경험으로 한 걸음 앞서 갑니다</li>
+        <li>현장에서 배우고 현장에서 성장합니다</li>
+        <li>지역 기업과 손잡고 일자리를 만듭니다</li>
+        <li>창업의 꿈을 현실로 만드는 대학</li>
+        <li>아이디어가 사업이 되는 곳</li>
+        <li>연구의 결실을 사회와 나눕니다</li>
+        <li>지식의 나눔이 지역의 힘이 됩니다</li>
+        <li>평생 배움의 길을 함께 걸어갑니다</li>
+        <li>나이와 상관없이 누구나 배울 수 있습니다</li>
+        <li>제주의 미래 세대를 키워 냅니다</li>
+        <li>우리의 내일은 제주대학교에서 시작됩니다</li>
+        <li>제주의 돌담처럼 단단한 기초를 쌓습니다</li>
+        <li>해녀의 도전 정신을 배우는 대학</li>
+        <li>오름에 오르듯 한 걸음씩 나아갑니다</li>
+        <li>유채꽃처럼 환하게 피어나는 청춘</li>
+        <li>동백처럼 굳건하게 겨울을 이겨 냅니다</li>
+        <li>제주의 노을처럼 아름다운 졸업을 맞이합니다</li>
+        <li>별이 쏟아지는 밤, 꿈도 함께 빛납니다</li>
+        <li>바다 내음 가득한 캠퍼스 산책로</li>
+        <li>걷는 길마다 추억이 쌓입니다</li>
+        <li>제주대학교 교정에서 만난 인연이 평생이 됩니다</li>
+        <li>사랑과 우정이 자라나는 캠퍼스</li>
+        <li>서로 존중하며 함께 웃는 공동체</li>
+        <li>다름을 인정하고 어울림을 배웁니다</li>
+        <li>배려와 나눔이 일상이 되는 대학</li>
+        <li>봉사로 세상을 따뜻하게 만듭니다</li>
+        <li>제주의 이웃과 함께하는 대학</li>
+        <li>안전하고 편안한 학습 환경을 만듭니다</li>
+        <li>학생의 목소리에 귀 기울입니다</li>
+        <li>더 나은 대학을 위해 끊임없이 혁신합니다</li>
+        <li>변화를 두려워하지 않는 대학입니다</li>
+        <li>디지털 시대를 선도하는 교육을 합니다</li>
+        <li>인공지능과 데이터로 미래를 엽니다</li>
+        <li>새로운 기술을 배우고 새로운 길을 만듭니다</li>
+        <li>제주대학교, 지금 이 순간이 시작입니다</li>
+        <li>당신의 꿈이 곧 제주대학교의 자랑입니다</li>
+        <li>오늘도 제주대학교는 당신 편입니다</li>
+        <li>제주의 푸른 꿈, 제주대학교와 함께하세요</li>
+        <li>제주대학교 — 바다처럼 넓게, 한라산처럼 높게!</li>
+      </ol>
+    </main>
+
+    <footer class="card-footer">
+      © 2026 내 취향 카드
+    </footer>
+  </div>
+
+  <script>
+    let count = 0;
+    const countEl = document.getElementById('count');
+    document.getElementById('btn').addEventListener('click', () => {
+      count += 2;
+      countEl.textContent = count;
+    });
+  </script>
+</body>
+</html>
