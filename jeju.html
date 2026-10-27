@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제주 특산물 홍보 사이트</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Malgun Gothic', sans-serif;
+      background: #fff8ef;
+      color: #2b2b2b;
+      line-height: 1.7;
+    }
+    .page { max-width: 960px; margin: 0 auto; padding: 16px; }
+
+    header {
+      background: linear-gradient(135deg, #ff9f43, #ff6b35);
+      color: #fff;
+      text-align: center;
+      padding: 36px 16px;
+      border-radius: 12px;
+    }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: 6px 0 0; opacity: .95; }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 12px 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    nav a {
+      flex: 1;
+      min-width: 90px;
+      padding: 14px 8px;
+      text-align: center;
+      text-decoration: none;
+      color: #555;
+      font-weight: bold;
+    }
+    nav a:hover { background: #fff1e3; color: #ff6b35; }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 12px;
+      align-items: start;
+    }
+    .left { display: flex; flex-direction: column; gap: 12px; }
+    section, article, aside {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    h2 { margin: 0 0 12px; font-size: 1.3rem; color: #ff6b35; }
+    h3 { margin: 0 0 4px; font-size: 1.05rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+    .item { background: #fff6ec; border-radius: 10px; padding: 12px; text-align: center; }
+    .item .emoji { font-size: 2.2rem; }
+    .item p { margin: 4px 0 0; font-size: .85rem; color: #555; }
+
+    article ul { padding-left: 1.2rem; margin: 0; }
+    article li { margin-bottom: 6px; }
+
+    aside h2 { font-size: 1.1rem; }
+    aside ul { list-style: none; padding: 0; margin: 0 0 16px; }
+    aside li { padding: 8px 0; border-bottom: 1px dashed #eee; font-size: .9rem; }
+    .count-box { text-align: center; background: #fff6ec; border-radius: 10px; padding: 12px; }
+    .count-box .num { font-size: 2.4rem; font-weight: bold; color: #ff6b35; }
+    .count-box button {
+      font-family: inherit; font-size: 1rem; padding: 6px 16px; cursor: pointer;
+      border: 0; border-radius: 8px; background: #ff6b35; color: #fff;
+    }
+
+    footer {
+      margin-top: 12px;
+      text-align: center;
+      padding: 18px;
+      font-size: .85rem;
+      color: #777;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    @media (max-width: 720px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header id="top">
+      <h1>🍊 제주 특산물 이야기 🌴</h1>
+      <p>바람과 바다, 화산토가 키운 제주의 맛을 만나 보세요</p>
+    </header>
+
+    <nav>
+      <a href="#top">🏠 홈</a>
+      <a href="#fruit">🍊 과일</a>
+      <a href="#sea">🐟 먹거리</a>
+      <a href="#season">🌤️ 제철 달력</a>
+      <a href="#tip">🎁 선물 팁</a>
+    </nav>
+
+    <div class="main-grid">
+      <div class="left">
+
+        <section id="fruit">
+          <h2>🍊 제주 대표 과일</h2>
+          <p>따뜻한 기후와 화산토 덕분에 제주의 과일은 향이 진하고 당도가 높습니다.</p>
+          <div class="cards">
+            <div class="item"><div class="emoji">🍊</div><h3>감귤</h3><p>새콤달콤, 겨울 간식의 왕</p></div>
+            <div class="item"><div class="emoji">🍋</div><h3>한라봉</h3><p>볼록한 꼭지, 진한 향</p></div>
+            <div class="item"><div class="emoji">🍊</div><h3>천혜향</h3><p>하늘이 내린 향기</p></div>
+            <div class="item"><div class="emoji">❤️</div><h3>레드향</h3><p>붉은 껍질, 큼직한 알맹이</p></div>
+          </div>
+        </section>
+
+        <article id="sea">
+          <h2>🐟 맛있는 제주 먹거리</h2>
+          <ul>
+            <li>🐖 <b>흑돼지</b> — 두툼한 근고기를 숯불에 구워 멜젓에 콕</li>
+            <li>🐟 <b>갈치</b> — 은빛 갈치로 끓인 조림과 구이</li>
+            <li>🐠 <b>옥돔</b> — 담백하고 고소한 제주의 생선</li>
+            <li>🐚 <b>전복 · 소라</b> — 해녀가 건져 올린 바다의 보물</li>
+            <li>🍜 <b>고기국수</b> — 진한 돼지 육수에 말아낸 한 그릇</li>
+            <li>🍵 <b>녹차</b> — 한라산 자락 차밭에서 자란 청정 찻잎</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <aside>
+        <h2 id="season">🌤️ 제철 달력</h2>
+        <ul>
+          <li>🌸 봄 — 감자, 녹차</li>
+          <li>☀️ 여름 — 하귤, 한치</li>
+          <li>🍂 가을 — 극조생 감귤</li>
+          <li>❄️ 겨울 — 감귤, 한라봉, 천혜향</li>
+        </ul>
+
+        <h2 id="tip">🎁 선물 팁</h2>
+        <ul>
+          <li>🍊 귤은 단단하고 꼭지가 작은 것으로</li>
+          <li>📦 택배는 제철에 바로 수확한 것이 신선해요</li>
+          <li>🍫 감귤 초콜릿은 가벼운 기념품으로 좋아요</li>
+        </ul>
+
+        <div class="count-box">
+          <div>🍊 내가 담은 귤</div>
+          <div class="num" id="count">0</div>
+          <button id="btn">+2 담기</button>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      © 2026 제주 특산물 이야기 · 🍊🌊🌋 제주의 맛, 제주의 멋
+    </footer>
+
+  </div>
+
+  <script>
+    let count = 0;
+    const countEl = document.getElementById('count');
+    document.getElementById('btn').addEventListener('click', () => {
+      count += 2;
+      countEl.textContent = count;
+    });
+  </script>
+</body>
+</html>
