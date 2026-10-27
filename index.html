@@ -47,15 +47,27 @@
     .left { display: flex; flex-direction: column; gap: 12px; }
     section, article, aside { padding: 20px; }
     h2 { margin: 0 0 12px; font-size: 1.1rem; color: #ff8a3d; }
-    section { text-align: center; }
-    #count { font-size: 4rem; margin-bottom: 0.5rem; }
-    button { font-size: 1.25rem; padding: 0.5rem 1.5rem; cursor: pointer; }
+    form { display: flex; gap: 8px; margin-bottom: 8px; }
+    input { flex: 1; padding: 10px; font-size: 1rem; border: 1px solid #bbb; border-radius: 8px; }
+    button { padding: 10px 18px; font-size: 1rem; border: 0; border-radius: 8px; background: #ff8a3d; color: #fff; cursor: pointer; }
+    button:disabled { background: #ccc; cursor: default; }
+    #status { min-height: 1.5em; margin: 6px 0; font-size: 0.9rem; color: #555; }
+    .slider { display: flex; align-items: center; gap: 8px; }
+    .arrow { flex: 0 0 auto; width: 40px; height: 40px; padding: 0; border-radius: 50%; font-size: 1.3rem; }
+    .slide { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .slide figure { margin: 0; background: #fafafa; border-radius: 6px; overflow: hidden; }
+    .slide img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .slide figcaption { padding: 2px 4px; font-size: 0.65rem; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #pageInfo { text-align: center; margin-top: 8px; font-size: 0.85rem; color: #555; }
     .promo { margin: 0; padding-left: 1.6rem; font-size: 0.9rem; line-height: 1.7; }
     .promo li::marker { color: #ff8a3d; font-weight: bold; }
     aside ul { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
     aside li { padding: 8px 0; border-bottom: 1px dashed #eee; }
     footer { margin-top: 12px; padding: 16px; text-align: center; font-size: 0.8rem; color: #888; }
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+      .slide { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -75,9 +87,18 @@
     <div class="grid">
       <div class="left">
         <section>
-          <h2>🔢 카운터</h2>
-          <div id="count">0</div>
-          <button id="btn">+2</button>
+          <h2>🖼️ 이미지 검색 슬라이드</h2>
+          <form id="form">
+            <input id="query" type="text" placeholder="검색어 (예: 제주도, 감귤, jeju)" required>
+            <button type="submit">검색</button>
+          </form>
+          <div id="status"></div>
+          <div class="slider">
+            <button class="arrow" id="prev" disabled aria-label="이전 10개">‹</button>
+            <div class="slide" id="slide"></div>
+            <button class="arrow" id="next" disabled aria-label="다음 10개">›</button>
+          </div>
+          <div id="pageInfo"></div>
         </section>
 
         <article>
@@ -204,12 +225,58 @@
   </div>
 
   <script>
-    let count = 0;
-    const countEl = document.getElementById('count');
-    document.getElementById('btn').addEventListener('click', () => {
-      count += 2;
-      countEl.textContent = count;
+    const PER_PAGE = 10;
+    const $ = id => document.getElementById(id);
+    let page = 1, totalHits = 0, query = '';
+
+    // API Key 는 브라우저에 두지 않고, Vercel 환경변수를 쓰는 /api/pixabay 서버 함수가 대신 호출한다.
+    async function load() {
+      $('status').textContent = '불러오는 중…';
+      $('prev').disabled = $('next').disabled = true;
+      try {
+        const res = await fetch('/api/pixabay?' + new URLSearchParams({ q: query, page, per_page: PER_PAGE }));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '요청 실패 (' + res.status + ')');
+        totalHits = data.totalHits;
+        render(data.hits);
+      } catch (err) {
+        $('status').textContent = '⚠️ ' + err.message;
+      }
+    }
+
+    function render(hits) {
+      const slide = $('slide');
+      slide.replaceChildren();
+      if (!hits.length) {
+        $('status').textContent = '검색 결과가 없어요.';
+        $('pageInfo').textContent = '';
+        return;
+      }
+      for (const h of hits) {
+        const fig = document.createElement('figure');
+        const img = document.createElement('img');
+        img.src = h.webformatURL;
+        img.alt = h.tags;
+        const cap = document.createElement('figcaption');
+        cap.textContent = h.tags;
+        fig.append(img, cap);
+        slide.append(fig);
+      }
+      const lastPage = Math.ceil(totalHits / PER_PAGE);
+      $('status').textContent = `"${query}" 검색 결과 ${totalHits.toLocaleString()}장`;
+      $('pageInfo').textContent = `${page} / ${lastPage} 페이지 (한 번에 ${PER_PAGE}장)`;
+      $('prev').disabled = page <= 1;
+      $('next').disabled = page >= lastPage;
+    }
+
+    $('form').addEventListener('submit', e => {
+      e.preventDefault();
+      query = $('query').value.trim();
+      page = 1;
+      load();
     });
+    $('prev').addEventListener('click', () => { page--; load(); });
+    $('next').addEventListener('click', () => { page++; load(); });
   </script>
 </body>
 </html>
